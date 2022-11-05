@@ -1,51 +1,51 @@
 # Django QUIZ
 
-## Технические требования
+## Technical requirements
 ### Web-UI
-  1. Регистрация
-      - [x] регистрация (с подтверждением по email)
-      - [x] авторизация
-      - [ ] смена пароля
-      - [ ] сброс пароля
+  1. Registration
+      - [x] registration (with email confirmation)
+      - [x] authorization
+      - [ ] password change
+      - [ ] passwrod reset
 
-  2. Возможности пользователя
-      - [ ] прохождение любого теста
-      - [ ] последовательно проходить вопросы теста (один за другим)
-      - [ ] завершение отложенного теста
-      - [ ] удаление незавершенного теста
-      - [ ] просмотр результатов
+  2. User capability
+      - [ ] take any test
+      - [ ] go through the test questions (one by one)
+      - [ ] completing a pending test
+      - [ ] deleting an incomplete test
+      - [ ] viewing results
 
-  3. После завершения теста
-      - [ ] отчет о ко-ве правильных и неправильных ответов
-      - [ ] процент правильных ответов
+  3. After test completion
+      - [ ] report about the number of correct and wrong answers
+      - [ ] percantage of correct answers
 
 ### Admin site
-  1. [ ] Управление пользователями
-  2. [ ] Управление тестами
-      - [ ] добавление теста
-      - [ ] изменить тест
-      - [ ] удаление теста
-      - [ ] валидация теста
-        - [ ] нельзя сохранить вопрос:
-            - [ ] без указания правильного ответа
-            - [ ] в которых все ответы правильные
-        - [ ] нельзя сохранить тест если:
-            - [ ] некорректный order_num (должен быть от 1 до 100 и увеличиваться на 1)
-            - [ ] максимальное значение order_num не более максимально допустимого кол-ва вопросов
-            - [ ] кол-во вопросов менее 3 или более 100
+  1. [ ] User administartion
+  2. [ ] Test administration
+      - [ ] add test
+      - [ ] modify a test
+      - [ ] deleting a test
+      - [ ] test validation
+        - [ ] you cannot save a question:
+            - [ ] without indicating the correct answer
+            - [ ] in which all answers are correct
+        - [ ] test cannot be saved if:
+            - [ ] order_num is incorrect (should be between 1 and 100 and incremented by 1)
+            - [ ] the maximal order_num value is a less than the maximal allowed number of questions
+            - [ ] number of questions less than 3 or more than 100
 
-### Дополнительные требования
-1. [x] Проект должен быть на Git-е
-2. [x] Наличие файла requirements.txt
+### Additional requirements
+1. [x] Project must be on Git
+2. [x] The requirements.txt file must be present
 3. [x] venv
 4. [ ] PostgreSQL
-5. [ ] Наличие дампа данных
+5. [ ] Availability of data dump
 6. [x] bootstrap
 7. [ ] API + Tests
 8. [ ] Docker image
-9. [ ] Кэширование
-10. [ ] Планировщик
-11. [ ] Деплой на Amazon
+9. [ ] Caching
+10. [ ] Scheduler
+11. [ ] Deploy to Amazon
 
 ## DB - Schema
 ![db](db_schema.jpg)

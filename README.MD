@@ -5,8 +5,8 @@
   1. Registration
       - [x] registration (with email confirmation)
       - [x] authorization
-      - [ ] password change
-      - [ ] passwrod reset
+      - [x] password change
+      - [x] passwrod reset
 
   2. User capability
       - [ ] take any test

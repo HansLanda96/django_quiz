@@ -1,16 +1,15 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.views import LoginView
-from django.contrib.auth.views import LogoutView
+from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView
+from django.contrib.messages.views import SuccessMessageMixin
 from django.core.signing import BadSignature
-from django.shortcuts import get_object_or_404
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.urls import reverse_lazy
-from django.views.generic import CreateView
-from django.views.generic import UpdateView
+from django.views.generic import CreateView, UpdateView
 
-from .forms import UserRegisterFrom, UserUpdateForm
+from .forms import ReactivationLinkForm, UserRegisterFrom, UserUpdateForm
 from .utils import signer
 
 
@@ -26,7 +25,6 @@ def user_activate(request, sign):
         username = signer.unsign(sign)
     except BadSignature:
         return render(request, 'accounts/bad_signature.html')
-
     user = get_object_or_404(get_user_model(), username=username)
     if user.is_activated:
         template = 'accounts/user_is_activated.html'
@@ -35,8 +33,20 @@ def user_activate(request, sign):
         user.is_activated = True
         user.is_active = True
         user.save()
-
     return render(request, template)
+
+
+def user_reactivate(request):
+    from .apps import user_register
+    if request.method == 'GET':
+        form = ReactivationLinkForm()
+    elif request.method == 'POST':
+        form = ReactivationLinkForm(request.POST)
+        user_email = request.POST.get('email')
+        user = get_object_or_404(get_user_model(), email=user_email)
+        user_register.send(sender=user, instance=user)
+        return render(request, 'accounts/user_reactivation_done.html')
+    return render(request, 'accounts/user_reactivation.html', {'form': form})
 
 
 class UserLoginView(LoginView):
@@ -60,3 +70,10 @@ class UserProfileUpdateView(LoginRequiredMixin, UpdateView):
 
     def get_object(self, queryset=None):
         return self.request.user
+
+
+class PasswordsChangeView(SuccessMessageMixin, PasswordChangeView):
+    template_name = 'registration/password_change.html'
+    from_class = PasswordChangeForm
+    success_url = reverse_lazy('index')
+    success_message = "Password was changed successfully"

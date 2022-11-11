@@ -1,4 +1,4 @@
-Dear user {{ user.username }}!
+Dear user {{ user.username.title }}!
 
 You have registered on the Quiz website (knowledge test).
 You need to activate your account to verify your identity.

@@ -9,7 +9,7 @@ from django.shortcuts import get_object_or_404, render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView
 
-from .forms import ReactivationLinkForm, UserRegisterFrom, UserUpdateForm
+from .forms import ReactivationLinkForm, UserRegisterForm, UserUpdateForm
 from .utils import signer
 
 
@@ -17,7 +17,7 @@ class UserRegisterView(CreateView):
     model = get_user_model()
     template_name = 'accounts/user_register.html'
     success_url = reverse_lazy('accounts:register_done')
-    form_class = UserRegisterFrom
+    form_class = UserRegisterForm
 
 
 def user_activate(request, sign):

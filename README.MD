@@ -41,7 +41,7 @@
 4. [ ] PostgreSQL
 5. [ ] Availability of data dump
 6. [x] bootstrap
-7. [] Unit Test
+7. [x] Unit Test
 8. [ ] API + Tests
 9. [ ] Docker image
 10. [ ] Caching

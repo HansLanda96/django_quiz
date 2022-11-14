@@ -20,7 +20,7 @@
       - [ ] percantage of correct answers
 
 ### Admin site
-  1. [ ] User administartion
+  1. [x] User administartion
   2. [ ] Test administration
       - [ ] add test
       - [ ] modify a test
@@ -41,11 +41,12 @@
 4. [ ] PostgreSQL
 5. [ ] Availability of data dump
 6. [x] bootstrap
-7. [ ] API + Tests
-8. [ ] Docker image
-9. [ ] Caching
-10. [ ] Scheduler
-11. [ ] Deploy to Amazon
+7. [] Unit Test
+8. [ ] API + Tests
+9. [ ] Docker image
+10. [ ] Caching
+11. [ ] Scheduler
+12. [ ] Deploy to Amazon
 
 ## DB - Schema
 ![db](db_schema.jpg)

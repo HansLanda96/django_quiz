@@ -9,7 +9,7 @@
       - [x] passwrod reset
 
   2. User capability
-      - [ ] take any test
+      - [x] take any test
       - [ ] go through the test questions (one by one)
       - [ ] completing a pending test
       - [ ] deleting an incomplete test
@@ -21,18 +21,18 @@
 
 ### Admin site
   1. [x] User administartion
-  2. [ ] Test administration
-      - [ ] add test
-      - [ ] modify a test
-      - [ ] deleting a test
+  2. [x] Test administration
+      - [x] add test
+      - [x] modify a test
+      - [x] deleting a test
       - [ ] test validation
-        - [ ] you cannot save a question:
-            - [ ] without indicating the correct answer
-            - [ ] in which all answers are correct
+        - [x] you cannot save a question:
+            - [x] without indicating the correct answer
+            - [x] in which all answers are correct
         - [ ] test cannot be saved if:
             - [ ] order_num is incorrect (should be between 1 and 100 and incremented by 1)
             - [ ] the maximal order_num value is a less than the maximal allowed number of questions
-            - [ ] number of questions less than 3 or more than 100
+            - [x] number of questions less than 3 or more than 100
 
 ### Additional requirements
 1. [x] Project must be on Git

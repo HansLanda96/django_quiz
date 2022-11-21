@@ -60,6 +60,9 @@ urlpatterns = [
         name='password_reset_complete'
     ),
 
+    # quiz urls
+    path('quiz/', include('quiz.urls')),
+
 ]
 
 if settings.DEBUG:

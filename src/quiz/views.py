@@ -26,12 +26,8 @@ class ExamDetailView(LoginRequiredMixin, DetailView):
 
     # def get_context_data(self, **kwargs):
     #     context = super().get_context_data(**kwargs)
-    #     context['result_list'] = Result.objects.filter(
-    #         exam=self.get_object(),
-    #         user=self.request.user
-    #     ).order_by('state', '-create_timestamp')
-    #
-    #     return context
+    #     context['result'] = Result.objects.all().order_by('-num_correct_answers').first()
+    #     context['last_run']
 
 
 class ExamResultCreateView(LoginRequiredMixin, CreateView):

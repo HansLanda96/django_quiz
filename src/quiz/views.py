@@ -2,7 +2,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
-from django.views.generic import CreateView, DetailView, ListView, UpdateView
+from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
+from django.views.generic.list import MultipleObjectMixin
 
 from .forms import ChoicesFormSet
 from .models import Exam, Question, Result
@@ -14,20 +15,27 @@ class ExamListView(LoginRequiredMixin, ListView):
     context_object_name = 'exams'       # object_list
 
 
-class ExamDetailView(LoginRequiredMixin, DetailView):
+class ExamDetailView(LoginRequiredMixin, DetailView, MultipleObjectMixin):
     model = Exam
     template_name = 'exam/details.html'
     context_object_name = 'exam'
     pk_url_kwarg = 'uuid'
+    paginate_by = 3
 
     def get_object(self, queryset=None):
         uuid = self.kwargs.get('uuid')
         return self.model.objects.get(uuid=uuid)
 
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     context['result'] = Result.objects.all().order_by('-num_correct_answers').first()
-    #     context['last_run']
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(object_list=self.get_queryset(), **kwargs)
+
+        return context
+
+    def get_queryset(self):
+        return Result.objects.filter(
+            exam=self.get_object(),
+            user=self.request.user
+        ).order_by('state', '-create_timestamp')    # ORDER BY state ASC, create_timestamp DESC
 
 
 class ExamResultCreateView(LoginRequiredMixin, CreateView):
@@ -47,7 +55,7 @@ class ExamResultCreateView(LoginRequiredMixin, CreateView):
                 kwargs={
                     'uuid': uuid,
                     'res_uuid': result.uuid,
-                    'order_num': 1
+                    # 'order_num': 1
                 }
             )
         )
@@ -57,7 +65,10 @@ class ExamResultQuestionView(LoginRequiredMixin, UpdateView):
     def get_params(self, **kwargs):
         uuid = kwargs.get('uuid')
         res_uuid = kwargs.get('res_uuid')
-        order_num = kwargs.get('order_num')
+        # order_num = kwargs.get('order_num')
+        order_num = Result.objects.filter(
+            uuid=res_uuid, user=self.request.user
+        ).values('current_order_number').first()['current_order_number'] + 1
 
         return uuid, res_uuid, order_num
 
@@ -95,13 +106,54 @@ class ExamResultQuestionView(LoginRequiredMixin, UpdateView):
                     }
                 )
             )
+
         return HttpResponseRedirect(
             reverse(
                 'quiz:question',
                 kwargs={
                     'uuid': uuid,
                     'res_uuid': res_uuid,
-                    'order_num': order_num + 1
+                    # 'order_num': order_num + 1
                 }
             )
         )
+
+
+class ExamResultDetailView(LoginRequiredMixin, DetailView):
+    model = Result
+    template_name = 'result/details.html'
+    context_object_name = 'result'
+    pk_url_kwarg = 'uuid'
+
+    def get_object(self, queryset=None):
+        uuid = self.kwargs.get('res_uuid')
+
+        return self.get_queryset().get(uuid=uuid)
+
+
+class ExamResultUpdateView(LoginRequiredMixin, UpdateView):
+    def get(self, request, *args, **kwargs):
+        uuid = kwargs.get('uuid')
+        res_uuid = kwargs.get('res_uuid')
+        # user = request.user
+
+        # result = Result.objects.get(
+        #     user=user,
+        #     uuid=res_uuid,
+        #     # exam__uuid=uuid,
+        # )
+
+        return HttpResponseRedirect(
+            reverse(
+                'quiz:question',
+                kwargs={
+                    'uuid': uuid,
+                    'res_uuid': res_uuid,
+                    # 'order_num': result.current_order_number + 1
+                }
+            )
+        )
+
+
+class ExamResultDeleteView(LoginRequiredMixin, DeleteView):
+    pass

@@ -5,7 +5,7 @@
 {% endblock title %}
 
 {% block header %}
-    Exam: {{ exam.title }}
+    {{ exam.title }}
 {% endblock header %}
 
 {% block content %}
@@ -51,7 +51,7 @@
                 <a class="btn btn-outline-primary m-2" href="{% url 'quiz:list' %}">Back to exams list</a>
             </form>
         </div>
-        {% comment %} {% if result_list %}
+        {% if object_list %}
             <table class="table table-striped table-hover">
                 <tr>
                     <th></th>
@@ -60,10 +60,11 @@
                     <th>Status</th>
                     <th>Action</th>
                 </tr>
-                {% for result in result_list %}
+                {% for result in object_list %}
                     <tr>
                         <td>{{ forloop.counter }}</td>
-                        <td>{{ result.create_timestamp }}</td>
+                        <td>{{ result.create_timestamp|date:'d-M-Y H:i' }}</td>
+                        {# datetime.strptime('%d-%m-%Y %H:%M') #}
                         <td>HA</td>
                         <td>{{ result.get_state_display }}</td>
                         <td>
@@ -79,6 +80,10 @@
                     </tr>
                 {% endfor %}
             </table>
-        {% endif %} {% endcomment %}
+        {% endif %}
+        {% if is_paginated %}
+            <div class="row">{% include 'includes/paginator.html' %}</div>
+        {% endif %}
     </div>
+
 {% endblock content %}

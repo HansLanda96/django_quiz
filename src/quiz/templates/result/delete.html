@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Delete results
+{% endblock title %}
+Delete results
+
+{% block header %}
+    Delete exam result
+{% endblock header %}
+
+{% block content %}
+    <div class='row'>
+        <div class='col-3'></div>
+        <form method="post">
+            {% csrf_token %}
+            <div class="card" style="mx-auto">
+                <div class="card-body">
+                    <h5 class="card-text">Are you sure you want to delete result for "{{ result.exam.title }}" exam?</h5>
+                    <h6 class='card-text'>Started: {{ result.create_timestamp }}</h6>
+                    <input class='btn btn-success bth-sm mt-2' type='submit' value='Agree'>
+                    <a class='btn btn-danger bth-sm mt-2'
+                       href="{% url 'quiz:details' uuid=result.exam.uuid %}">Cancel</a>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock content %}

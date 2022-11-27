@@ -21,9 +21,10 @@
                     {% block header %}{% endblock %}
                 </h1>
             </div>
-            {% if messages %}
-                {% for message in messages %}<div class="alert alert-{{ message.tags }}" role="alert">{{ message }}</div>{% endfor %}
-            {% endif %}
+            {% for message in messages %}
+                <li class="alert {{ message.tags }} alert-dismissible shadow fade show"
+                    role="alert">{{ message | safe }}</li>
+            {% endfor %}
             {% block content %}
             {% endblock content %}
         </div>

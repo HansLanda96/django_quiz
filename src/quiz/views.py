@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
@@ -81,7 +82,6 @@ class ExamResultQuestionView(LoginRequiredMixin, UpdateView):
     def get(self, request, *args, **kwargs):
         uuid, res_uuid, order_num = self.get_params(**kwargs)
         question = self.get_question(uuid, order_num)
-
         choices = ChoicesFormSet(queryset=question.choices.all())
 
         return render(request, 'exam/question.html', context={'question': question, 'choices': choices})
@@ -89,31 +89,34 @@ class ExamResultQuestionView(LoginRequiredMixin, UpdateView):
     def post(self, request, *args, **kwargs):
         uuid, res_uuid, order_num = self.get_params(**kwargs)
         question = self.get_question(uuid, order_num)
-
         choices = ChoicesFormSet(data=request.POST)
         selected_choices = ['is_selected' in form.changed_data for form in choices.forms]
-
-        result = Result.objects.get(uuid=res_uuid)
-        result.update_result(order_num, question, selected_choices)
-
-        if result.state == Result.STATE.FINISHED:
-            return HttpResponseRedirect(
-                reverse(
-                    'quiz:result_details',
-                    kwargs={
-                        'uuid': uuid,
-                        'res_uuid': result.uuid
-                    }
-                )
+        if not any(selected_choices):
+            messages.error(self.request, 'You must select at least one answer to continue exam!')
+        elif all(selected_choices):
+            messages.error(
+                self.request,
+                'It is not allowed to choose all answers as "correct"'
             )
-
+        else:
+            result = Result.objects.get(uuid=res_uuid)
+            result.update_result(order_num, question, selected_choices)
+            if result.state == Result.STATE.FINISHED:
+                return HttpResponseRedirect(
+                    reverse(
+                        'quiz:result_details',
+                        kwargs={
+                            'uuid': uuid,
+                            'res_uuid': result.uuid,
+                        }
+                    )
+                )
         return HttpResponseRedirect(
             reverse(
                 'quiz:question',
                 kwargs={
                     'uuid': uuid,
                     'res_uuid': res_uuid,
-                    # 'order_num': order_num + 1
                 }
             )
         )

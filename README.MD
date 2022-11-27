@@ -10,14 +10,14 @@
 
   2. User capability
       - [x] take any test
-      - [ ] go through the test questions (one by one)
-      - [ ] completing a pending test
-      - [ ] deleting an incomplete test
-      - [ ] viewing results
+      - [x] go through the test questions (one by one)
+      - [x] completing a pending test
+      - [x] deleting an incomplete test
+      - [x] viewing results
 
   3. After test completion
-      - [ ] report about the number of correct and wrong answers
-      - [ ] percantage of correct answers
+      - [x] report about the number of correct and wrong answers
+      - [x] percantage of correct answers
 
 ### Admin site
   1. [x] User administartion
@@ -29,9 +29,9 @@
         - [x] you cannot save a question:
             - [x] without indicating the correct answer
             - [x] in which all answers are correct
-        - [ ] test cannot be saved if:
-            - [ ] order_num is incorrect (should be between 1 and 100 and incremented by 1)
-            - [ ] the maximal order_num value is a less than the maximal allowed number of questions
+        - [x] test cannot be saved if:
+            - [x] order_num is incorrect (should be between 1 and 100 and incremented by 1)
+            - [x] the maximal order_num value is a less than the maximal allowed number of questions
             - [x] number of questions less than 3 or more than 100
 
 ### Additional requirements
@@ -39,7 +39,7 @@
 2. [x] The requirements.txt file must be present
 3. [x] venv
 4. [ ] PostgreSQL
-5. [ ] Availability of data dump
+5. [x] Availability of data dump
 6. [x] bootstrap
 7. [x] Unit Test
 8. [ ] API + Tests

@@ -29,7 +29,8 @@ class ExamDetailView(LoginRequiredMixin, DetailView, MultipleObjectMixin):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(object_list=self.get_queryset(), **kwargs)
-
+        context['details_result'] = Result.objects.filter(
+            exam=self.get_object()).order_by('-num_correct_answers').first()
         return context
 
     def get_queryset(self):

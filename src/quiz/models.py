@@ -94,3 +94,7 @@ class Result(BaseModel):
         if order_number == question.exam.questions.count():
             self.state = self.STATE.FINISHED
         self.save()
+
+    def score(self):
+        score = self.num_correct_answers - self.num_incorrect_answers
+        return score if score >= 0 else 0

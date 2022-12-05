@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from os import environ
 from pathlib import Path
 
-# from celery.schedules import crontab
+from celery.schedules import crontab
 
 from django.contrib import messages
 from django.urls import reverse_lazy
@@ -172,19 +172,19 @@ MESSAGE_TAGS = {
     messages.ERROR: 'alert-danger',
 }
 
-# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-# SERVER_EMAIL = 'noreply@example.com'
-# ADMINS = [('admin', 'admin@test.com'), ]
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+SERVER_EMAIL = 'noreply@example.com'
+ADMINS = [('admin', 'admin@test.com'), ]
 
-# CELERY_BROKER_URL = environ['CELERY_BROKER']
+CELERY_BROKER_URL = environ['CELERY_BROKER']
 
-# CELERY_BEAT_SCHEDULE = {
-#     'simple_task': {
-#         'task': 'quiz.tasks.simple_task',
-#         'schedule': crontab(minute='*/1')
-#     },
-#     'send_email_report': {
-#         'task': 'quiz.tasks.send_email_report',
-#         'schedule': crontab(minute='*/2')
-#     },
-# }
+CELERY_BEAT_SCHEDULE = {
+    'simple_task': {
+        'task': 'quiz.tasks.simple_task',
+        'schedule': crontab(minute='*/1')
+    },
+    'send_email_report': {
+        'task': 'quiz.tasks.send_email_report',
+        'schedule': crontab(minute='*/2')
+    },
+}

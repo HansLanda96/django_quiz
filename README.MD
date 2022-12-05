@@ -25,7 +25,7 @@
       - [x] add test
       - [x] modify a test
       - [x] deleting a test
-      - [ ] test validation
+      - [x] test validation
         - [x] you cannot save a question:
             - [x] without indicating the correct answer
             - [x] in which all answers are correct
@@ -38,14 +38,14 @@
 1. [x] Project must be on Git
 2. [x] The requirements.txt file must be present
 3. [x] venv
-4. [ ] PostgreSQL
+4. [x] PostgreSQL
 5. [x] Availability of data dump
 6. [x] bootstrap
 7. [x] Unit Test
 8. [ ] API + Tests
-9. [ ] Docker image
+9. [x] Docker image
 10. [ ] Caching
-11. [ ] Scheduler
+11. [x] Scheduler
 12. [ ] Deploy to Amazon
 
 ## DB - Schema

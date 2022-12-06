@@ -46,6 +46,7 @@ INSTALLED_APPS = [
 
     'accounts.apps.AccountsConfig',
     'quiz.apps.QuizConfig',
+    'task.apps.TaskConfig',
 ]
 
 if DEBUG:

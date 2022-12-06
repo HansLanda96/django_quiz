@@ -53,8 +53,8 @@ services:
     depends_on:
       db:
         condition: service_healthy
-      web:
-        condition: service_healthy
+      # web:
+      #   condition: service_healthy
     healthcheck:
       test: [ 'CMD', '/usr/src/healthcheck.sh' ]
       interval: 1m
@@ -83,6 +83,7 @@ services:
       - .env
     depends_on:
       - broker
+      - backend
 
   scheduler:
     build: .
@@ -94,6 +95,15 @@ services:
       - .env
     depends_on:
       - broker
+      - backend
+
+  backend:
+    image: redis:6.2.6-alpine
+    container_name: backend_service
+    volumes:
+      - redis_volume:/data
+    ports:
+      - "6379:6379"
 
 volumes:
   db_data_volume:
@@ -106,3 +116,5 @@ volumes:
     name: source_code
   rabbit_volume:
     name: rabbit_data
+  redis_volume:
+    name: redis_data

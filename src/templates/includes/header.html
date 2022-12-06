@@ -21,7 +21,14 @@
                     <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{% url 'quiz:list' %}">Exam list</a>
+                    <a class="nav-link active"
+                       aria-current="page"
+                       href="{% url 'quiz:list' %}">Exam list</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active"
+                       aria-current="page"
+                       href="{% url 'task_home' %}">Tasks</a>
                 </li>
             </ul>
             {% if request.path %}{% endif %}
@@ -36,7 +43,13 @@
                            href="#"
                            role="button"
                            data-bs-toggle="dropdown"
-                           aria-expanded="false">{% if user.username %}{{ user.username.title }}{% else %}Login{% endif %}</a>
+                           aria-expanded="false">
+                            {% if user.username %}
+                                {{ user.username.title }}
+                            {% else %}
+                                Login
+                            {% endif %}
+                        </a>
                         <ul class="dropdown-menu">
                             {% if user.is_authenticated %}
                                 <li>

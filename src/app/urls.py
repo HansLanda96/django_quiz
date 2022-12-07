@@ -23,6 +23,8 @@ from django.contrib.auth import views as auth_views
 from django.urls import include, path
 from django.views.generic import TemplateView
 
+from task.views import get_status, home, run_task
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -62,7 +64,9 @@ urlpatterns = [
 
     # quiz urls
     path('quiz/', include('quiz.urls')),
-
+    path('home/', home, name='task_home'),
+    path('tasks/<task_id>/', get_status, name='get_status'),
+    path('tasks/', run_task, name='run_task'),
 ]
 
 if settings.DEBUG:

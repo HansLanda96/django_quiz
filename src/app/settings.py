@@ -46,6 +46,7 @@ INSTALLED_APPS = [
 
     'accounts.apps.AccountsConfig',
     'quiz.apps.QuizConfig',
+    'task.apps.TaskConfig',
 ]
 
 if DEBUG:
@@ -177,6 +178,7 @@ SERVER_EMAIL = 'noreply@example.com'
 ADMINS = [('admin', 'admin@test.com'), ]
 
 CELERY_BROKER_URL = environ['CELERY_BROKER']
+CELERY_RESULT_BACKEND = environ['CELERY_BACKEND']
 
 CELERY_BEAT_SCHEDULE = {
     'simple_task': {
